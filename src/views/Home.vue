@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="home">
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <input type="text" v-model="name">
@@ -11,6 +12,7 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <input type="text" v-model="score">
     <button @click="updateScore"></button>
+  </div>
   <div id="homepage">
     <br />
     <br />
@@ -19,6 +21,7 @@
     <h1>Ka-Boot !</h1>
     <UsernameForm></UsernameForm>
 
+  </div>
   </div>
 </template>
 
