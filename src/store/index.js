@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     roomID: '',
     roomName: '',
+    name: '',
     member: []
   },
   mutations: {
@@ -21,15 +22,19 @@ export default new Vuex.Store({
     },
     UPDATE_SCORE (state, payload) {
 
+    },
+    UPDATE_NAME (state, payload) {
+      state.name = payload
     }
   },
   actions: {
     createRoom ({ commit }, payload) {
-      db.collection('rooms').add({ 'member0': { 'username': payload, 'score': 0 }, count: 0 })
+      db.collection('rooms').add({ 'member0': { 'username': payload, 'score': 0 }, count: 0, status: false })
         .then(result => {
           commit('CREATE_ROOM', result.id)
           localStorage.setItem('roomID', result.id)
           localStorage.setItem(`member`, `member0`)
+          commit('UPDATE_NAME', payload)
           let temp = {
             'member0': {
               'username': payload,
@@ -68,6 +73,7 @@ export default new Vuex.Store({
               'score': 0
             }
           }
+          commit('UPDATE_NAME', payload.user)
           commit('JOIN_ROOM', temp)
           localStorage.setItem(`member`, `member${count}`)
           console.log(result, 'sukses')
