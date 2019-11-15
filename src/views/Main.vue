@@ -11,7 +11,7 @@
     </div>
     <h1 v-if="!raceNow && !ready">click click !</h1>
     <Countdown v-if="ready"></Countdown>
-    <Race v-if="raceNow"></Race>
+    <Race id="race" v-if="raceNow"></Race>
   </div>
 </template>
 
