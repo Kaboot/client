@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import swal from 'sweetalert2'
 export default {
   name: 'UsernameForm',
   data () {
@@ -70,21 +71,42 @@ export default {
   },
   methods: {
     created () {
-      this.$store.dispatch('createRoom', this.name)
+      if (this.name.length > 0) this.$store.dispatch('createRoom', this.name)
+      else {
+        swal.fire({
+          title: 'input your name'
+        })
+      }
     },
     joined () {
-      this.joinOpt = true
+      if (this.name.length > 0) this.joinOpt = true
+      else {
+        swal.fire({
+          title: 'input your name'
+        })
+      }
     },
     createRoom () {
-      this.$store.dispatch('createRoom', this.name)
+      if (this.name.length > 0) this.$store.dispatch('createRoom', this.name)
+      else {
+        swal.fire({
+          title: 'input your name'
+        })
+      }
       // this.name = ''
     },
     joinRoom () {
-      let payload = {
-        id: this.roomID,
-        user: this.name
+      if (this.name.length > 0) {
+        let payload = {
+          id: this.roomID,
+          user: this.name
+        }
+        this.$store.dispatch('joinRoom', payload)
+      } else {
+        swal.fire({
+          title: 'input your name'
+        })
       }
-      this.$store.dispatch('joinRoom', payload)
     }
   }
 }
