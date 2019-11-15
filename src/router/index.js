@@ -14,7 +14,7 @@ const routes = [
   },
   {
     path: '/race',
-    name: 'main',
+    name: 'race',
     component: Main
   }
 ]

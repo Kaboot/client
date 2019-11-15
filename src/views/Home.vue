@@ -1,27 +1,14 @@
 <template>
   <div>
-  <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <input type="text" v-model="name">
-    <!-- <button @click="createUser">Username</button> -->
-
-    <button @click="createRoom">Create Room</button>
-    <br>
-    <input type="text" v-model="roomID">
-    <button @click="joinRoom">Join Room</button>
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <input type="text" v-model="score">
-    <button @click="updateScore"></button>
-  </div>
-  <div id="homepage">
-    <br />
-    <br />
-    <!-- <sui-icon name="spinner" size="huge" loading /> -->
-    <img src="../assets/image1.jpg" alt style="width:300px" />
-    <h1>Ka-Boot !</h1>
-    <UsernameForm></UsernameForm>
-
-  </div>
+    <div id="homepage">
+      <br />
+      <br />
+      <br />
+      <!-- <sui-icon name="spinner" size="huge" loading /> -->
+      <img src="../assets/image1.jpg" alt style="width:300px" />
+      <h1>Ka-Boot !</h1>
+      <UsernameForm></UsernameForm>
+    </div>
   </div>
 </template>
 
@@ -34,29 +21,29 @@ export default {
   name: "Home",
   components: {
     // HelloWorld
-     UsernameForm
+    UsernameForm
   },
-  data () {
+  data() {
     return {
-      name: '',
-      user: '',
-      roomID: ''
-    }
+      name: "",
+      user: "",
+      roomID: ""
+    };
   },
   methods: {
-    createRoom () {
-      this.$store.dispatch('createRoom', this.name)
-      this.name = ''
+    createRoom() {
+      this.$store.dispatch("createRoom", this.name);
+      this.name = "";
     },
-    joinRoom () {
+    joinRoom() {
       let payload = {
         id: this.roomID,
         user: this.name
-      }
-      this.$store.dispatch('joinRoom', payload)
+      };
+      this.$store.dispatch("joinRoom", payload);
     },
-    updateScore () {
-      localStorage.getItem('')
+    updateScore() {
+      localStorage.getItem("");
     }
   }
 };
@@ -83,7 +70,7 @@ export default {
   font-family: "Caveat Brush", cursive;
   /* font-family: 'Gloria Hallelujah', cursive;
     font-family: 'Gloria Hallelujah', cursive; */
-  animation: 5s ease 0s infinite alternate none running logos;
+  animation: 3s ease 0s infinite alternate none running logos;
   font-size: 70px;
   margin-top: 0;
   font-size: 100px;
