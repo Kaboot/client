@@ -15,25 +15,25 @@
 
 <script>
 export default {
-  name: "UsernameForm",
-  data() {
+  name: 'UsernameForm',
+  data () {
     return {
       user: {
-        name: ""
+        name: ''
       }
-    };
+    }
   },
   methods: {
-    userJoined() {
-      db.collection("users")
+    userJoined () {
+      db.collection('users')
         .add({
           name: this.user.name
         })
         .then(docRef => {})
-        .catch(error => {});
+        .catch(error => {})
     }
   }
-};
+}
 </script>
 
 <style scoped>

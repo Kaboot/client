@@ -1,4 +1,6 @@
 <template>
+<div>
+  <Race v-if="raceNow"></Race>
   <div id="main">
     <h1 v-if="!raceNow && !ready">vroom vroom !</h1>
     <div v-if="!raceNow && !ready" class="startDiv">
@@ -11,37 +13,37 @@
     </div>
     <h1 v-if="!raceNow && !ready">click click !</h1>
     <Countdown v-if="ready"></Countdown>
-    <Race v-if="raceNow"></Race>
   </div>
+</div>
 </template>
 
 <script>
-import Countdown from "@/components/Countdown";
-import Race from "@/components/Race";
+import Countdown from '@/components/Countdown'
+import Race from '@/components/Race'
 
 export default {
-  name: "Main",
+  name: 'Main',
   components: {
     Countdown,
     Race
   },
-  data() {
+  data () {
     return {
       ready: false,
       raceNow: false
-    };
+    }
   },
   methods: {
-    start() {
-      this.ready = true;
-      setTimeout(this.race, 3500);
+    start () {
+      this.ready = true
+      setTimeout(this.race, 3500)
     },
-    race() {
-      this.ready = false;
-      this.raceNow = true;
+    race () {
+      this.ready = false
+      this.raceNow = true
     }
   }
-};
+}
 </script>
 
 <style scoped>

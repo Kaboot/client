@@ -29,12 +29,12 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 // import db from '../config/firestore'
-import UsernameForm from "@/components/UsernameForm";
+import UsernameForm from '@/components/UsernameForm'
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     // HelloWorld
-     UsernameForm
+    UsernameForm
   },
   data () {
     return {
@@ -59,7 +59,7 @@ export default {
       localStorage.getItem('')
     }
   }
-};
+}
 </script>
 
 <style scoped>
