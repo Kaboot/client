@@ -51,6 +51,9 @@
         </div>
       </sui-form>
     </div>
+    <audio autoplay loop>
+      <source src="../assets/Final Fantasy VII Chocobo Theme.mp3" type="audio/mp3">
+    </audio>
   </div>
 </template>
 
