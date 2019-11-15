@@ -1,15 +1,58 @@
 <template>
   <div class="formUsername">
-    <sui-form size="huge">
-      <sui-form-field @submit.stop.prevent="userJoined" style="align-text: center;">
-        <input placeholder="enter your name" v-model="user.name" class="btn-join" />
+    <sui-form v-show="createOpt" size="huge">
+      <sui-form-field @submit.stop.prevent="createRoom" style="align-text: center;">
+        <input placeholder="enter your name" type="text" v-model="name" class="btn-join" />
       </sui-form-field>
-      <div is="sui-button-group">
-        <sui-button class="btn-enter">Create</sui-button>
-        <sui-button-or />
-        <sui-button class="btn-enter">Join</sui-button>
-      </div>
+      <sui-button
+        type="submit"
+        class="btn-enter"
+        size="large"
+        animated
+        @click="createRoom"
+        @click.prevent="start"
+      >
+        <sui-button-content visible>Enter</sui-button-content>
+        <sui-button-content
+          hidden
+          style="display: flex; text-align: center; justify-content: center;"
+        >
+          <sui-icon size="large" name="plus square" />
+        </sui-button-content>
+      </sui-button>
     </sui-form>
+
+    <sui-form v-show="joinOpt" size="huge">
+      <sui-form-field @submit.stop.prevent="joinRoom" style="align-text: center;">
+        <input placeholder="enter key room" type="text" v-model="roomID" class="btn-join" />
+      </sui-form-field>
+      <sui-button
+        type="submit"
+        class="btn-enter"
+        size="large"
+        animated
+        @click="joinRoom"
+        @click.prevent="start"
+      >
+        <sui-button-content visible>Join</sui-button-content>
+        <sui-button-content hidden>
+          <sui-icon size="large" name="sign in alternate" />
+        </sui-button-content>
+      </sui-button>
+    </sui-form>
+
+    <div v-if="!joinOpt && !createOpt" is="sui-button-group" size="huge">
+      <sui-form size="huge">
+        <sui-form-field @submit.stop.prevent="opt" style="align-text: center;">
+          <input placeholder="enter your name" v-model="name" class="btn-join" />
+        </sui-form-field>
+        <div is="sui-button-group">
+          <sui-button class="btn-enter" @click.stop.prevent="created">Create</sui-button>
+          <sui-button-or />
+          <sui-button class="btn-enter" @click.stop.prevent="joined">Join</sui-button>
+        </div>
+      </sui-form>
+    </div>
   </div>
 </template>
 
@@ -18,19 +61,30 @@ export default {
   name: 'UsernameForm',
   data () {
     return {
-      user: {
-        name: ''
-      }
+      name: '',
+      user: '',
+      roomID: '',
+      createOpt: false,
+      joinOpt: false
     }
   },
   methods: {
-    userJoined () {
-      db.collection('users')
-        .add({
-          name: this.user.name
-        })
-        .then(docRef => {})
-        .catch(error => {})
+    created () {
+      this.$store.dispatch('createRoom', this.name)
+    },
+    joined () {
+      this.joinOpt = true
+    },
+    createRoom () {
+      this.$store.dispatch('createRoom', this.name)
+      // this.name = ''
+    },
+    joinRoom () {
+      let payload = {
+        id: this.roomID,
+        user: this.name
+      }
+      this.$store.dispatch('joinRoom', payload)
     }
   }
 }

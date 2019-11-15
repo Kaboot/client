@@ -1,18 +1,5 @@
 <template>
   <div>
-  <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <input type="text" v-model="name">
-    <!-- <button @click="createUser">Username</button> -->
-
-    <button @click="createRoom">Create Room</button>
-    <br>
-    <input type="text" v-model="roomID">
-    <button @click="joinRoom">Join Room</button>
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <input type="text" v-model="score">
-    <button @click="updateScore"></button>
-  </div>
   <div id="homepage">
     <br />
     <br />
@@ -28,7 +15,7 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-// import db from '../config/firestore'
+import db from '../config/firestore'
 import UsernameForm from '@/components/UsernameForm'
 export default {
   name: 'Home',
@@ -40,13 +27,20 @@ export default {
     return {
       name: '',
       user: '',
-      roomID: ''
+      roomID: '',
+      score: 0
     }
   },
   methods: {
+    show () {
+      db.collection('rooms').doc(this.$store.state.roomID).onSnapshot(querySnapshot => {
+        let data = querySnapshot.data()
+        console.log(data, 'ini hasilnya')
+      })
+    },
     createRoom () {
       this.$store.dispatch('createRoom', this.name)
-      this.name = ''
+      // this.name = ''
     },
     joinRoom () {
       let payload = {
@@ -56,7 +50,14 @@ export default {
       this.$store.dispatch('joinRoom', payload)
     },
     updateScore () {
-      localStorage.getItem('')
+      // this.roomID = localStorage.getItem('roomID')
+      let payload = {
+        id: localStorage.getItem('roomID'),
+        score: 5,
+        username: this.name
+      }
+      console.log(payload)
+      this.$store.dispatch('updateScore', payload)
     }
   }
 }
@@ -83,7 +84,7 @@ export default {
   font-family: "Caveat Brush", cursive;
   /* font-family: 'Gloria Hallelujah', cursive;
     font-family: 'Gloria Hallelujah', cursive; */
-  animation: 5s ease 0s infinite alternate none running logos;
+  animation: 3s ease 0s infinite alternate none running logos;
   font-size: 70px;
   margin-top: 0;
   font-size: 100px;

@@ -2,6 +2,7 @@
 <div>
       <input v-model="score" type="text">
   <div id="race">
+
       <!-- <button class="btn btn-success" id="myida" ref="myida" style="width: 100px; height:100px" v-on:click.prevent="addScore">Nyamuk</button> -->
       <input v-on:click.prevent="addScore" id="myida" type="image" src="https://purepng.com/public/uploads/large/purepng.com-cloudnaturecloudsmoke-9615246757368kjiz.png" style="width:100px" >
       <button class="btn btn-success" id="myidb" ref="myidb" style="width: 100px; height:100px" v-on:click.prevent="addScore">Nyamuk</button>
@@ -9,6 +10,7 @@
       <button class="btn btn-success" id="myidd" ref="myidd" style="width: 100px; height:100px" v-on:click.prevent="addScore">Nyamuk</button>
       <button class="btn btn-success" id="myide" ref="myide" style="width: 100px; height:100px" v-on:click.prevent="addScore">Nyamuk</button>
       <a v-if="!started" v-on:click.prevent="getStarted">Get Started</a>
+
   </div>
 </div>
 </template>
@@ -135,7 +137,21 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+@import url("https://fonts.googleapis.com/css?family=Caveat+Brush|Covered+By+Your+Grace|Gloria+Hallelujah|Holtwood+One+SC|Patrick+Hand+SC&display=swap");
+h1 {
+  font-family: "Patrick Hand SC";
+  color: antiquewhite;
+  font-weight: bolder;
+}
+#race {
+  background-image: url("../assets/Space-Phone-Wallpaper.jpg");
+  background-attachment: fixed;
+  background-blend-mode: soft-light;
+  background-size: contain;
+  width: 100%;
+  height: 100vh;
+}
 #id{
   padding: 0;
   margin: 0;

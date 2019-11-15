@@ -13,9 +13,10 @@ const routes = [
   },
   {
     path: '/race',
-    name: 'main',
+    name: 'race',
     component: Main
   }
+
 ]
 
 const router = new VueRouter({
