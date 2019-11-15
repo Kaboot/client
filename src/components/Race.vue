@@ -97,17 +97,22 @@
       <input type="image" src="https://purepng.com/public/uploads/large/purepng.com-cloudnaturecloudsmoke-9615246757368kjiz.png" style="width:100px; height: 100px" id="myidj" ref="myidj" v-on:click.prevent="addScore(1)">
       <a v-if="!started" v-on:click.prevent="getStarted">Get Started</a>
     </div>
-    <button v-if="!check" @click="backToHome">Home</button>
+    <div class="end" v-if="!check" @click="backToHome">
+      <h1> GAME OVER !</h1>
+      <sui-header-content style="font-size:18px;">
+        {{userWinner}} is winner     
+      </sui-header-content>
+    <sui-button
+        value="Home"
+      >Home</sui-button>
+    </div>
   </div>
 </template>
 
 <script>
 import swal from 'sweetalert2'
 import db from '../config/firestore'
-<<<<<<< HEAD
 import router from '../router'
-=======
->>>>>>> addmusic done
 export default {
   name: 'Race',
   data () {
@@ -122,20 +127,14 @@ export default {
       score3: 0,
       user4: '',
       score4: 0,
-<<<<<<< HEAD
-      check: true
+      check: true,
+      userWinner: ''
     }
   },
   methods: {
     backToHome () {
       router.push('/')
     },
-=======
-      check: false
-    }
-  },
-  methods: {
->>>>>>> addmusic done
     getStarted () {
       if (this.check) {
         console.log('masuk sini')
@@ -160,11 +159,7 @@ export default {
         RandomObjectMover.prototype._generateNewPosition = function () {
           // Get container dimensions minus div size
           var availableHeight = this.$container.innerHeight - 250
-<<<<<<< HEAD
-          var availableWidth = this.$container.innerWidth - 500
-=======
           var availableWidth = this.$container.innerWidth - 1000
->>>>>>> addmusic done
 
           // Pick a random place in the space
           var y = Math.floor(Math.random() * availableHeight)
@@ -235,15 +230,6 @@ export default {
         var c = new RandomObjectMover(document.getElementById('myidc'), window)
         var d = new RandomObjectMover(document.getElementById('myidd'), window)
         var e = new RandomObjectMover(document.getElementById('myide'), window)
-<<<<<<< HEAD
-        a.start()
-        b.setSpeed(200)
-        b.start()
-        c.setSpeed(2000)
-        c.start()
-        d.start()
-        e.start()
-=======
         var f = new RandomObjectMover(document.getElementById('myidf'), window)
         var g = new RandomObjectMover(document.getElementById('myidg'), window)
         var h = new RandomObjectMover(document.getElementById('myidh'), window)
@@ -263,7 +249,6 @@ export default {
         h.start()
         i.start()
         j.start()
->>>>>>> addmusic done
       } else {
         db.collection('rooms')
           .doc(this.$store.state.roomID)
@@ -279,19 +264,14 @@ export default {
       }
     },
     addScore (input) {
-      if (this.started) {
-        let payload = {
-          id: localStorage.getItem('roomID'),
-          score: input,
-          username: this.$store.state.name
-        }
-        console.log(payload)
-        this.$store.dispatch('updateScore', payload)
-      } else {
-        swal.fire({
-          title: 'You need to start first'
-        })
+      console.log(this.$store.state.name)
+      let payload = {
+        id: localStorage.getItem('roomID'),
+        score: input,
+        username: this.$store.state.name
       }
+      console.log(payload)
+      this.$store.dispatch('updateScore', payload)
     }
   },
   created () {
@@ -308,21 +288,25 @@ export default {
           this.user1 = temp.member0.username
           this.score1 = temp.member0.score
           this.score = temp.member0.score
+          this.userWinner = temp.member0.username
         }
         if (temp.member1 !== undefined) {
           this.user2 = temp.member1.username
           this.score2 = temp.member1.score
           this.score = temp.member1.score
+          this.userWinner = temp.member1.username
         }
         if (temp.member2 !== undefined) {
-          this.user3 = temp.member3.username
-          this.score3 = temp.member3.score
-          this.score = temp.member3.score
+          this.user3 = temp.member2.username
+          this.score3 = temp.member2.score
+          this.score = temp.member2.score
+          this.userWinner = temp.member2.username
         }
         if (temp.member3 !== undefined) {
-          this.user4 = temp.member4.username
-          this.score4 = temp.member4.score
-          this.score = temp.member4.score
+          this.user4 = temp.member3.username
+          this.score4 = temp.member3.score
+          this.score = temp.member3.score
+          this.userWinner = temp.member3.username
         }
       }
       console.log(this.score)
@@ -345,6 +329,8 @@ export default {
   font-weight: bolder;
   width: auto;
 }
+
+
 
 #race {
   background-image: url("../assets/Space-Phone-Wallpaper.jpg");
@@ -381,4 +367,45 @@ export default {
   padding: 2px;
   border: none;
 }
+.nyamuk1 {
+  border: none;
+  width: 70px;
+  height: 70px;
+  background-image: url("../assets/muka.png");
+  background-size: cover;
+}
+.nyamuk2 {
+  border: none;
+  width: 70px;
+  height: 70px;
+  background-image: url("../assets/alien.png");
+  background-size: cover;
+}
+.nyamuk3 {
+  border: none;
+  width: 70px;
+  height: 70px;
+  background-image: url("../assets/taik.jpeg");
+  background-size: cover;
+}
+.nyamuk4 {
+  border: none;
+  width: 70px;
+  height: 70px;
+  background-image: url("../assets/kecoak1.jpeg");
+  background-size: cover;
+  background-position-x: center;
+}
+.end{
+  margin-top: 200px;
+  margin: 700px
+}
+
+@media only screen and (max-width: 600px) {
+.end{
+  margin: 400px
+}
+ 
+}
+
 </style>
