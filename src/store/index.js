@@ -11,7 +11,8 @@ export default new Vuex.Store({
     roomID: '',
     roomName: '',
     name: '',
-    member: []
+    member: [],
+    status: false
   },
   mutations: {
     CREATE_ROOM (state, payload) {
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     },
     UPDATE_NAME (state, payload) {
       state.name = payload
+    },
+    UPDATE_STATUS (state, payload) {
+      state.status = payload
     }
   },
   actions: {

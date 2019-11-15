@@ -9,8 +9,7 @@
         class="btn-enter"
         size="large"
         animated
-        @click="createRoom"
-        @click.prevent="start"
+        @click.prevent="createRoom"
       >
         <sui-button-content visible>Enter</sui-button-content>
         <sui-button-content
@@ -31,8 +30,7 @@
         class="btn-enter"
         size="large"
         animated
-        @click="joinRoom"
-        @click.prevent="start"
+        @click.prevent="joinRoom"
       >
         <sui-button-content visible>Join</sui-button-content>
         <sui-button-content hidden>

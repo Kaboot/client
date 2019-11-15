@@ -20,7 +20,7 @@
 <script>
 import Countdown from '@/components/Countdown'
 import Race from '@/components/Race'
-
+import db from '../config/firestore'
 export default {
   name: 'Main',
   components: {
@@ -36,6 +36,15 @@ export default {
   methods: {
     start () {
       this.ready = true
+      db.collection('rooms').doc(this.$store.state.roomID).update({ status: true })
+          .then(() => {
+            // this.started = true
+            // this.check = true
+            this.$store.commit('UPDATE_STATUS', true)
+          })
+          .catch(err => {
+            this.$store.commit('UPDATE_STATUS', false)
+          })
       setTimeout(this.race, 3500)
     },
     race () {
