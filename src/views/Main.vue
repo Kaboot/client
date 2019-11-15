@@ -12,6 +12,9 @@
     <h1 v-if="!raceNow && !ready">click click !</h1>
     <Countdown v-if="ready"></Countdown>
     <Race id="race" v-if="raceNow"></Race>
+    <audio autoplay loop>
+      <source src="../assets/Final Fantasy VII Chocobo Theme.mp3" type="audio/mp3">
+    </audio>
   </div>
 </template>
 
