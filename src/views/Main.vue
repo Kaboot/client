@@ -1,4 +1,6 @@
 <template>
+<div>
+  <Race v-if="raceNow"></Race>
   <div id="main">
     <h1 v-if="!raceNow && !ready">vroom vroom !</h1>
     <div v-if="!raceNow && !ready" class="startDiv">
@@ -11,8 +13,8 @@
     </div>
     <h1 v-if="!raceNow && !ready">click click !</h1>
     <Countdown v-if="ready"></Countdown>
-    <Race id="race" v-if="raceNow"></Race>
   </div>
+</div>
 </template>
 
 <script>
