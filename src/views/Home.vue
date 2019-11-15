@@ -10,8 +10,9 @@
     <input type="text" v-model="roomID">
     <button @click="joinRoom">Join Room</button>
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <input type="text" v-model="score">
-    <button @click="updateScore"></button>
+    <!-- <input type="text" v-model="score"> -->
+    <button @click="updateScore">Update</button>
+    <button @click="show">show</button>
   </div>
   <div id="homepage">
     <br />
@@ -19,7 +20,7 @@
     <!-- <sui-icon name="spinner" size="huge" loading /> -->
     <img src="../assets/image1.jpg" alt style="width:300px" />
     <h1>Ka-Boot !</h1>
-    <UsernameForm></UsernameForm>
+    <!-- <UsernameForm></UsernameForm> -->
 
   </div>
   </div>
@@ -28,25 +29,32 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-// import db from '../config/firestore'
-import UsernameForm from "@/components/UsernameForm";
+import db from '../config/firestore'
+// import UsernameForm from '@/components/UsernameForm'
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     // HelloWorld
-     UsernameForm
+    // UsernameForm
   },
   data () {
     return {
       name: '',
       user: '',
-      roomID: ''
+      roomID: '',
+      score: 0
     }
   },
   methods: {
+    show () {
+      db.collection('rooms').doc(this.$store.state.roomID).onSnapshot(querySnapshot => {
+        let data = querySnapshot.data()
+        console.log(data, 'ini hasilnya')
+      })
+    },
     createRoom () {
       this.$store.dispatch('createRoom', this.name)
-      this.name = ''
+      // this.name = ''
     },
     joinRoom () {
       let payload = {
@@ -56,10 +64,17 @@ export default {
       this.$store.dispatch('joinRoom', payload)
     },
     updateScore () {
-      localStorage.getItem('')
+      // this.roomID = localStorage.getItem('roomID')
+      let payload = {
+        id: localStorage.getItem('roomID'),
+        score: 5,
+        username: this.name
+      }
+      console.log(payload)
+      this.$store.dispatch('updateScore', payload)
     }
   }
-};
+}
 </script>
 
 <style scoped>
