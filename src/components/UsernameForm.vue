@@ -44,7 +44,7 @@
     <div v-if="!joinOpt && !createOpt" is="sui-button-group" size="huge">
       <sui-form size="huge">
         <sui-form-field @submit.stop.prevent="opt" style="align-text: center;">
-          <input placeholder="enter your name" v-model="user.name" class="btn-join" />
+          <input placeholder="enter your name" v-model="name" class="btn-join" />
         </sui-form-field>
         <div is="sui-button-group">
           <sui-button class="btn-enter" @click.stop.prevent="created">Create</sui-button>
@@ -58,34 +58,36 @@
 
 <script>
 export default {
-  name: "UsernameForm",
-  data() {
+  name: 'UsernameForm',
+  data () {
     return {
-      name: "",
-      user: "",
-      roomID: "",
+      name: '',
+      user: '',
+      roomID: '',
       createOpt: false,
       joinOpt: false
-    };
+    }
   },
   methods: {
-    created() {},
-    joined() {
-      this.joinOpt = true;
+    created () {
+      this.$store.dispatch('createRoom', this.name)
     },
-    createRoom() {
-      this.$store.dispatch("createRoom", this.name);
-      this.name = "";
+    joined () {
+      this.joinOpt = true
     },
-    joinRoom() {
+    createRoom () {
+      this.$store.dispatch('createRoom', this.name)
+      // this.name = ''
+    },
+    joinRoom () {
       let payload = {
         id: this.roomID,
         user: this.name
-      };
-      this.$store.dispatch("joinRoom", payload);
+      }
+      this.$store.dispatch('joinRoom', payload)
     }
   }
-};
+}
 </script>
 
 <style scoped>

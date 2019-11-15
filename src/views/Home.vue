@@ -1,52 +1,66 @@
 <template>
   <div>
-    <div id="homepage">
-      <br />
-      <br />
-      <br />
-      <!-- <sui-icon name="spinner" size="huge" loading /> -->
-      <img src="../assets/image1.jpg" alt style="width:300px" />
-      <h1>Ka-Boot !</h1>
-      <UsernameForm></UsernameForm>
-    </div>
+  <div id="homepage">
+    <br />
+    <br />
+    <!-- <sui-icon name="spinner" size="huge" loading /> -->
+    <img src="../assets/image1.jpg" alt style="width:300px" />
+    <h1>Ka-Boot !</h1>
+    <UsernameForm></UsernameForm>
+
+  </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-// import db from '../config/firestore'
-import UsernameForm from "@/components/UsernameForm";
+import db from '../config/firestore'
+import UsernameForm from '@/components/UsernameForm'
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     // HelloWorld
     UsernameForm
   },
-  data() {
+  data () {
     return {
-      name: "",
-      user: "",
-      roomID: ""
-    };
+      name: '',
+      user: '',
+      roomID: '',
+      score: 0
+    }
   },
   methods: {
-    createRoom() {
-      this.$store.dispatch("createRoom", this.name);
-      this.name = "";
+    show () {
+      db.collection('rooms').doc(this.$store.state.roomID).onSnapshot(querySnapshot => {
+        let data = querySnapshot.data()
+        console.log(data, 'ini hasilnya')
+      })
     },
-    joinRoom() {
+    createRoom () {
+      this.$store.dispatch('createRoom', this.name)
+      // this.name = ''
+    },
+    joinRoom () {
       let payload = {
         id: this.roomID,
         user: this.name
-      };
-      this.$store.dispatch("joinRoom", payload);
+      }
+      this.$store.dispatch('joinRoom', payload)
     },
-    updateScore() {
-      localStorage.getItem("");
+    updateScore () {
+      // this.roomID = localStorage.getItem('roomID')
+      let payload = {
+        id: localStorage.getItem('roomID'),
+        score: 5,
+        username: this.name
+      }
+      console.log(payload)
+      this.$store.dispatch('updateScore', payload)
     }
   }
-};
+}
 </script>
 
 <style scoped>

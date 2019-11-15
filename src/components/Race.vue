@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  name: "Race"
-};
+  name: 'Race'
+}
 </script>
 
 <style scoped>
@@ -26,3 +26,4 @@ h1 {
   height: 100vh;
 }
 </style>
+
