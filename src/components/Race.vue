@@ -94,7 +94,9 @@
         class="btn btn-success"
         id="myidb"
         ref="myidb"
-        style="width: 100px; height:100px"
+        style="width: 100px; 
+        height:100px
+        background-image: url(../assets/nyamuk1.jpg)"
         v-on:click.prevent="addScore(10)"
       >Nyamuk</button>
       <button
