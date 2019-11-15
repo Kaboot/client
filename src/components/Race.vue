@@ -1,8 +1,87 @@
 <template>
-  <div>
+  <div style="border:none;">
+    <div id="dashboard">
+      <sui-table unstackable class="dash">
+        <sui-table-header class="dash-head">
+          <!-- <sui-icon name="trophy icon" size="small" /> -->
+          <strong>SCORE</strong>
+        </sui-table-header>
+        <sui-table-body style="display: flex; justify-content: space-evenly;">
+          <sui-table-row>
+            <sui-table-cell>
+              <h4 is="sui-header" image>
+                <sui-image
+                  src="https://semantic-ui.com/images/avatar/small/jenny.jpg"
+                  shape="rounded"
+                  size="mini"
+                />
+                <sui-header-content style="font-size:18px;">
+                  User-x
+                  <sui-header-subheader
+                    v-model="score"
+                    style="font-size:18px;"
+                    placeholder="your score"
+                  >{{score}}</sui-header-subheader>
+                </sui-header-content>
+              </h4>
+            </sui-table-cell>
+            <sui-table-cell>
+              <h4 is="sui-header" image>
+                <sui-image
+                  src="https://semantic-ui.com/images/avatar/small/steve.jpg"
+                  shape="rounded"
+                  size="mini"
+                />
+                <sui-header-content style="font-size:18px;">
+                  User-x
+                  <sui-header-subheader
+                    style="font-size:18px;"
+                    v-model="score"
+                    placeholder="your score"
+                  >{{score}}</sui-header-subheader>
+                </sui-header-content>
+              </h4>
+            </sui-table-cell>
+            <sui-table-cell>
+              <h4 is="sui-header" image>
+                <sui-image
+                  src="https://semantic-ui.com/images/avatar/small/elliot.jpg"
+                  shape="rounded"
+                  size="mini"
+                />
+                <sui-header-content style="font-size:18px;">
+                  User-x
+                  <sui-header-subheader
+                    v-model="score"
+                    style="font-size:18px;"
+                    placeholder="your score"
+                  >{{score}}</sui-header-subheader>
+                </sui-header-content>
+              </h4>
+            </sui-table-cell>
+            <sui-table-cell>
+              <h4 is="sui-header" image>
+                <sui-image
+                  src="https://semantic-ui.com/images/avatar/small/veronika.jpg"
+                  shape="rounded"
+                  size="mini"
+                />
+                <sui-header-content style="font-size:18px;">
+                  User-x
+                  <sui-header-subheader
+                    style="font-size:18px;"
+                    v-model="score"
+                    placeholder="your score"
+                  >{{score}}</sui-header-subheader>
+                </sui-header-content>
+              </h4>
+            </sui-table-cell>
+          </sui-table-row>
+        </sui-table-body>
+      </sui-table>
+    </div>
+
     <div id="race">
-      <h1>{{mess}}</h1>
-      <input v-model="score" type="text" />
       <!-- <button class="btn btn-success" id="myida" ref="myida" style="width: 100px; height:100px" v-on:click.prevent="addScore">Nyamuk</button> -->
       <input
         v-on:click.prevent="addScore"
@@ -28,13 +107,6 @@
       <button
         class="btn btn-success"
         id="myidd"
-        ref="myidd"
-        style="width: 100px; height:100px"
-        v-on:click.prevent="addScore"
-      >Nyamuk</button>
-      <button
-        class="btn btn-success"
-        id="myide"
         ref="myide"
         style="width: 100px; height:100px"
         v-on:click.prevent="addScore"
@@ -62,13 +134,7 @@ export default {
     };
   },
   methods: {
-    showmess() {
-      setTimeout(function() {
-        this.messages.forEach(message => {
-          this.mess = message;
-        });
-      }, 3000);
-    },
+    showmess() {},
     getStarted() {
       this.started = true;
       function RandomObjectMover(obj, container) {
@@ -110,10 +176,7 @@ export default {
       RandomObjectMover.prototype._moveOnce = function() {
         // Pick a new spot on the page
         var next = this._generateNewPosition();
-
-        // How far do we have to move?
-        var delta = this._calcDelta(this.current_position, next);
-
+        style = "display: flex; align-items: center;";
         // Speed of this transition, rounded to 2DP
         var speed = Math.round((delta / this.pixels_per_second) * 100) / 100;
 
@@ -187,12 +250,15 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Caveat+Brush|Covered+By+Your+Grace|Gloria+Hallelujah|Holtwood+One+SC|Patrick+Hand+SC&display=swap");
-h1 {
+
+* {
   font-family: "Patrick Hand SC";
-  color: rgb(35, 35, 33);
+  color: rgb(209, 157, 16);
   font-weight: bolder;
-  background-color: rgba(250, 235, 215, 0.571);
   width: auto;
+}
+
+h4 {
 }
 #race {
   background-image: url("../assets/Space-Phone-Wallpaper.jpg");
@@ -208,5 +274,25 @@ h1 {
 }
 #myidc {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#dashboad {
+  border: none;
+}
+.dash {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 500px;
+  border: none;
+}
+.dash-head {
+  display: flex;
+  background-color: black;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 208, 0);
+  font-size: 18px;
+  padding: 2px;
+  border: none;
 }
 </style>
