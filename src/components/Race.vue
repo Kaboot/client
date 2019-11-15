@@ -86,10 +86,16 @@
         src="https://purepng.com/public/uploads/large/purepng.com-cloudnaturecloudsmoke-9615246757368kjiz.png"
         style="width:100px"
       />
-      <button class="nyamuk4" id="myidb" ref="myidb" v-on:click.prevent="addScore(10)"></button>
-      <button class="nyamuk1" id="myidc" ref="myidc" v-on:click.prevent="addScore(1)"></button>
-      <button class="nyamuk2" id="myidd" ref="myidd" v-on:click.prevent="addScore(1)"></button>
-      <button class="nyamuk3" id="myide" ref="myide" v-on:click.prevent="addScore(1)"></button>
+      <input type="image" src="https://purepng.com/public/uploads/large/purepng.com-cloudnaturecloudsmoke-9615246757368kjiz.png" style="width:100px; height: 100px" id="myidb" ref="myidb" v-on:click.prevent="addScore(5)">
+      <input type="image" src="https://purepng.com/public/uploads/large/purepng.com-cloudnaturecloudsmoke-9615246757368kjiz.png" style="width:100px; height: 100px" id="myidc" ref="myidc" v-on:click.prevent="addScore(10)">
+      <input type="image" src="https://purepng.com/public/uploads/large/purepng.com-cloudnaturecloudsmoke-9615246757368kjiz.png" style="width:100px; height: 100px" id="myidd" ref="myidd" v-on:click.prevent="addScore(12)">
+      <input type="image" src="https://purepng.com/public/uploads/large/purepng.com-cloudnaturecloudsmoke-9615246757368kjiz.png" style="width:100px; height: 100px" id="myide" ref="myide" v-on:click.prevent="addScore(15)">
+      <input type="image" src="https://purepng.com/public/uploads/large/purepng.com-cloudnaturecloudsmoke-9615246757368kjiz.png" style="width:100px; height: 100px" id="myidf" ref="myidf" v-on:click.prevent="addScore(1)">
+      <input type="image" src="https://purepng.com/public/uploads/large/purepng.com-cloudnaturecloudsmoke-9615246757368kjiz.png" style="width:100px; height: 100px" id="myidg" ref="myidg" v-on:click.prevent="addScore(1)">
+      <input type="image" src="https://purepng.com/public/uploads/large/purepng.com-cloudnaturecloudsmoke-9615246757368kjiz.png" style="width:100px; height: 100px" id="myidh" ref="myidh" v-on:click.prevent="addScore(1)">
+      <input type="image" src="https://purepng.com/public/uploads/large/purepng.com-cloudnaturecloudsmoke-9615246757368kjiz.png" style="width:100px; height: 100px" id="myidi" ref="myidi" v-on:click.prevent="addScore(1)">
+      <input type="image" src="https://purepng.com/public/uploads/large/purepng.com-cloudnaturecloudsmoke-9615246757368kjiz.png" style="width:100px; height: 100px" id="myidj" ref="myidj" v-on:click.prevent="addScore(1)">
+      <a v-if="!started" v-on:click.prevent="getStarted">Get Started</a>
     </div>
     <div class="end" v-if="!check" @click="backToHome">
       <h1> GAME OVER !</h1>
@@ -153,7 +159,7 @@ export default {
         RandomObjectMover.prototype._generateNewPosition = function () {
           // Get container dimensions minus div size
           var availableHeight = this.$container.innerHeight - 250
-          var availableWidth = this.$container.innerWidth - 500
+          var availableWidth = this.$container.innerWidth - 1000
 
           // Pick a random place in the space
           var y = Math.floor(Math.random() * availableHeight)
@@ -224,13 +230,25 @@ export default {
         var c = new RandomObjectMover(document.getElementById('myidc'), window)
         var d = new RandomObjectMover(document.getElementById('myidd'), window)
         var e = new RandomObjectMover(document.getElementById('myide'), window)
+        var f = new RandomObjectMover(document.getElementById('myidf'), window)
+        var g = new RandomObjectMover(document.getElementById('myidg'), window)
+        var h = new RandomObjectMover(document.getElementById('myidh'), window)
+        var i = new RandomObjectMover(document.getElementById('myidi'), window)
+        var j = new RandomObjectMover(document.getElementById('myidj'), window)
         a.start()
         b.setSpeed(200)
         b.start()
-        c.setSpeed(2000)
+        c.setSpeed(1000)
         c.start()
+        d.setSpeed(1500)
         d.start()
+        e.setSpeed(2000)
         e.start()
+        f.start()
+        g.start()
+        h.start()
+        i.start()
+        j.start()
       } else {
         db.collection('rooms')
           .doc(this.$store.state.roomID)
@@ -389,4 +407,5 @@ export default {
 }
  
 }
+
 </style>
