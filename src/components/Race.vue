@@ -90,9 +90,16 @@
       <button class="nyamuk1" id="myidc" ref="myidc" v-on:click.prevent="addScore(1)"></button>
       <button class="nyamuk2" id="myidd" ref="myidd" v-on:click.prevent="addScore(1)"></button>
       <button class="nyamuk3" id="myide" ref="myide" v-on:click.prevent="addScore(1)"></button>
-      <a v-if="!started" v-on:click.prevent="getStarted">Get Started</a>
     </div>
-    <button v-if="!check" @click="backToHome">Home</button>
+    <div class="end" v-if="!check" @click="backToHome">
+      <h1> GAME OVER !</h1>
+      <sui-header-content style="font-size:18px;">
+        {{userWinner}} is winner     
+      </sui-header-content>
+    <sui-button
+        value="Home"
+      >Home</sui-button>
+    </div>
   </div>
 </template>
 
@@ -114,7 +121,8 @@ export default {
       score3: 0,
       user4: '',
       score4: 0,
-      check: true
+      check: true,
+      userWinner: ''
     }
   },
   methods: {
@@ -238,19 +246,14 @@ export default {
       }
     },
     addScore (input) {
-      if (this.started) {
-        let payload = {
-          id: localStorage.getItem('roomID'),
-          score: input,
-          username: this.$store.state.name
-        }
-        console.log(payload)
-        this.$store.dispatch('updateScore', payload)
-      } else {
-        swal.fire({
-          title: 'You need to start first'
-        })
+      console.log(this.$store.state.name)
+      let payload = {
+        id: localStorage.getItem('roomID'),
+        score: input,
+        username: this.$store.state.name
       }
+      console.log(payload)
+      this.$store.dispatch('updateScore', payload)
     }
   },
   created () {
@@ -267,21 +270,25 @@ export default {
           this.user1 = temp.member0.username
           this.score1 = temp.member0.score
           this.score = temp.member0.score
+          this.userWinner = temp.member0.username
         }
         if (temp.member1 !== undefined) {
           this.user2 = temp.member1.username
           this.score2 = temp.member1.score
           this.score = temp.member1.score
+          this.userWinner = temp.member1.username
         }
         if (temp.member2 !== undefined) {
-          this.user3 = temp.member3.username
-          this.score3 = temp.member3.score
-          this.score = temp.member3.score
+          this.user3 = temp.member2.username
+          this.score3 = temp.member2.score
+          this.score = temp.member2.score
+          this.userWinner = temp.member2.username
         }
         if (temp.member3 !== undefined) {
-          this.user4 = temp.member4.username
-          this.score4 = temp.member4.score
-          this.score = temp.member4.score
+          this.user4 = temp.member3.username
+          this.score4 = temp.member3.score
+          this.score = temp.member3.score
+          this.userWinner = temp.member3.username
         }
       }
       console.log(this.score)
@@ -304,6 +311,8 @@ export default {
   font-weight: bolder;
   width: auto;
 }
+
+
 
 #race {
   background-image: url("../assets/Space-Phone-Wallpaper.jpg");
@@ -368,5 +377,16 @@ export default {
   background-image: url("../assets/kecoak1.jpeg");
   background-size: cover;
   background-position-x: center;
+}
+.end{
+  margin-top: 200px;
+  margin: 700px
+}
+
+@media only screen and (max-width: 600px) {
+.end{
+  margin: 400px
+}
+ 
 }
 </style>
