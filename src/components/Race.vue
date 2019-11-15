@@ -18,7 +18,6 @@
                 <sui-header-content style="font-size:18px;">
                   {{user1}}
                   <sui-header-subheader
-                    v-model="score"
                     style="font-size:18px;"
                     placeholder="your score"
                   >{{score1}}</sui-header-subheader>
@@ -36,7 +35,6 @@
                   {{user2}}
                   <sui-header-subheader
                     style="font-size:18px;"
-                    v-model="score"
                     placeholder="your score"
                   >{{score2}}</sui-header-subheader>
                 </sui-header-content>
@@ -52,7 +50,6 @@
                 <sui-header-content style="font-size:18px;">
                   {{user3}}
                   <sui-header-subheader
-                    v-model="score"
                     style="font-size:18px;"
                     placeholder="your score"
                   >{{score3}}</sui-header-subheader>
@@ -70,7 +67,6 @@
                   {{user4}}
                   <sui-header-subheader
                     style="font-size:18px;"
-                    v-model="score"
                     placeholder="your score"
                   >{{score4}}</sui-header-subheader>
                 </sui-header-content>
@@ -81,7 +77,7 @@
       </sui-table>
     </div>
 
-    <div id="race">
+    <div id="race" v-if="check">
       <!-- <button class="btn btn-success" id="myida" ref="myida" style="width: 100px; height:100px" v-on:click.prevent="addScore">Nyamuk</button> -->
       <input
         v-on:click.prevent="addScore(1)"
@@ -96,135 +92,139 @@
       <button class="nyamuk3" id="myide" ref="myide" v-on:click.prevent="addScore(1)"></button>
       <a v-if="!started" v-on:click.prevent="getStarted">Get Started</a>
     </div>
+    <button v-if="!check" @click="backToHome">Home</button>
   </div>
-</div>
 </template>
 
 <script>
-import swal from "sweetalert2";
-import db from "../config/firestore";
+import swal from 'sweetalert2'
+import db from '../config/firestore'
+import router from '../router'
 export default {
-  name: "Race",
-  data() {
+  name: 'Race',
+  data () {
     return {
       score: 0,
       started: false,
-      user1: "",
+      user1: '',
       score1: 0,
-      user2: "",
+      user2: '',
       score2: 0,
-      user3: "",
+      user3: '',
       score3: 0,
-      user4: "",
+      user4: '',
       score4: 0,
-      check: false
-    };
+      check: true
+    }
   },
   methods: {
-    getStarted() {
+    backToHome () {
+      router.push('/')
+    },
+    getStarted () {
       if (this.check) {
-        console.log("masuk sini");
-        this.started = true;
-        function RandomObjectMover(obj, container) {
-          console.log(container);
-          this.$object = obj;
-          this.$container = container;
-          this.pixels_per_second = 500;
+        console.log('masuk sini')
+        this.started = true
+        function RandomObjectMover (obj, container) {
+          console.log(container)
+          this.$object = obj
+          this.$container = container
+          this.pixels_per_second = 500
           this.current_position = {
             x: 0,
             y: 0
-          };
-          this.is_running = false;
+          }
+          this.is_running = false
         }
 
         // Set the speed of movement in Pixels per Second.
-        RandomObjectMover.prototype.setSpeed = function(pxPerSec) {
-          this.pixels_per_second = pxPerSec;
-        };
+        RandomObjectMover.prototype.setSpeed = function (pxPerSec) {
+          this.pixels_per_second = pxPerSec
+        }
 
-        RandomObjectMover.prototype._generateNewPosition = function() {
+        RandomObjectMover.prototype._generateNewPosition = function () {
           // Get container dimensions minus div size
-          var availableHeight = this.$container.innerHeight - 250;
-          var availableWidth = this.$container.innerWidth - 500;
+          var availableHeight = this.$container.innerHeight - 250
+          var availableWidth = this.$container.innerWidth - 500
 
           // Pick a random place in the space
-          var y = Math.floor(Math.random() * availableHeight);
-          var x = Math.floor(Math.random() * availableWidth);
+          var y = Math.floor(Math.random() * availableHeight)
+          var x = Math.floor(Math.random() * availableWidth)
 
-          return { x: x, y: y };
-        };
+          return { x: x, y: y }
+        }
 
-        RandomObjectMover.prototype._calcDelta = function(a, b) {
-          var dx = a.x - b.x;
-          var dy = a.y - b.y;
-          var dist = Math.sqrt(dx * dx + dy * dy);
-          return dist;
-        };
+        RandomObjectMover.prototype._calcDelta = function (a, b) {
+          var dx = a.x - b.x
+          var dy = a.y - b.y
+          var dist = Math.sqrt(dx * dx + dy * dy)
+          return dist
+        }
 
-        RandomObjectMover.prototype._moveOnce = function() {
+        RandomObjectMover.prototype._moveOnce = function () {
           // Pick a new spot on the page
-          var next = this._generateNewPosition();
+          var next = this._generateNewPosition()
 
           // How far do we have to move?
-          var delta = this._calcDelta(this.current_position, next);
+          var delta = this._calcDelta(this.current_position, next)
 
           // Speed of this transition, rounded to 2DP
           var speed = (Math.round((delta / this.pixels_per_second) * 100) / 100) || 0.05
           // console.log(this.current_position, next, delta, speed);
 
-          this.$object.style.transition = "transform " + speed + "s linear";
+          this.$object.style.transition = 'transform ' + speed + 's linear'
           this.$object.style.transform =
-            "translate3d(" + next.x + "px, " + next.y + "px, 0)";
+            'translate3d(' + next.x + 'px, ' + next.y + 'px, 0)'
 
           // Save this new position ready for the next call.
-          this.current_position = next;
-        };
+          this.current_position = next
+        }
 
-        RandomObjectMover.prototype.start = function() {
+        RandomObjectMover.prototype.start = function () {
           if (this.is_running) {
-            return;
+            return
           }
 
           // Make sure our object has the right css set
-          this.$object.willChange = "transform";
-          this.$object.pointerEvents = "auto";
+          this.$object.willChange = 'transform'
+          this.$object.pointerEvents = 'auto'
 
-          this.boundEvent = this._moveOnce.bind(this);
+          this.boundEvent = this._moveOnce.bind(this)
 
           // Bind callback to keep things moving
-          this.$object.addEventListener("transitionend", this.boundEvent);
+          this.$object.addEventListener('transitionend', this.boundEvent)
 
           // Start it moving
-          this._moveOnce();
+          this._moveOnce()
 
-          this.is_running = true;
-        };
+          this.is_running = true
+        }
 
-        RandomObjectMover.prototype.stop = function() {
+        RandomObjectMover.prototype.stop = function () {
           if (!this.is_running) {
-            return;
+            return
           }
 
-          this.$object.removeEventListener("transitionend", this.boundEvent);
+          this.$object.removeEventListener('transitionend', this.boundEvent)
 
-          this.is_running = false;
-        };
+          this.is_running = false
+        }
 
         // Init it
-        var a = new RandomObjectMover(document.getElementById("myida"), window);
-        var b = new RandomObjectMover(document.getElementById("myidb"), window);
-        var c = new RandomObjectMover(document.getElementById("myidc"), window);
-        var d = new RandomObjectMover(document.getElementById("myidd"), window);
-        var e = new RandomObjectMover(document.getElementById("myide"), window);
-        a.start();
-        b.setSpeed(200);
-        b.start();
-        c.setSpeed(2000);
-        c.start();
-        d.start();
-        e.start();
+        var a = new RandomObjectMover(document.getElementById('myida'), window)
+        var b = new RandomObjectMover(document.getElementById('myidb'), window)
+        var c = new RandomObjectMover(document.getElementById('myidc'), window)
+        var d = new RandomObjectMover(document.getElementById('myidd'), window)
+        var e = new RandomObjectMover(document.getElementById('myide'), window)
+        a.start()
+        b.setSpeed(200)
+        b.start()
+        c.setSpeed(2000)
+        c.start()
+        d.start()
+        e.start()
       } else {
-        db.collection("rooms")
+        db.collection('rooms')
           .doc(this.$store.state.roomID)
           .update({ status: true })
           .then(() => {
@@ -232,24 +232,24 @@ export default {
             this.check = true
           })
           .catch(err => {
-            this.check = false;
-            this.started = false;
-          });
+            this.check = false
+            this.started = false
+          })
       }
     },
-    addScore(input) {
+    addScore (input) {
       if (this.started) {
         let payload = {
-          id: localStorage.getItem("roomID"),
+          id: localStorage.getItem('roomID'),
           score: input,
           username: this.$store.state.name
-        };
-        console.log(payload);
-        this.$store.dispatch("updateScore", payload);
+        }
+        console.log(payload)
+        this.$store.dispatch('updateScore', payload)
       } else {
         swal.fire({
-          title: "You need to start first"
-        });
+          title: 'You need to start first'
+        })
       }
     }
   },
@@ -259,29 +259,40 @@ export default {
       console.log(temp)
       this.check = temp.status
       this.status = temp.status
-      console.log(this.check)
-      console.log(this.status)
-      this.getStarted()
-      if (temp.member0 !== undefined) {
-        this.user1 = temp.member0.username
-        this.score1 = temp.member0.score
+      if (this.check && this.status) {
+        console.log(this.check)
+        console.log(this.status)
+        this.getStarted()
+        if (temp.member0 !== undefined) {
+          this.user1 = temp.member0.username
+          this.score1 = temp.member0.score
+          this.score = temp.member0.score
+        }
+        if (temp.member1 !== undefined) {
+          this.user2 = temp.member1.username
+          this.score2 = temp.member1.score
+          this.score = temp.member1.score
+        }
+        if (temp.member2 !== undefined) {
+          this.user3 = temp.member3.username
+          this.score3 = temp.member3.score
+          this.score = temp.member3.score
+        }
+        if (temp.member3 !== undefined) {
+          this.user4 = temp.member4.username
+          this.score4 = temp.member4.score
+          this.score = temp.member4.score
+        }
       }
-      if (temp.member1 !== undefined) {
-        this.user2 = temp.member1.username
-        this.score2 = temp.member1.score
+      console.log(this.score)
+      if (this.score > 100) {
+        console.log('masuk batas score')
+         db.collection('rooms').doc(this.$store.state.roomID).update({ status: false })
       }
-      if (temp.member2 !== undefined) {
-        this.user3 = temp.member3.username
-        this.score3 = temp.member3.score
-      }
-      if (temp.member3 !== undefined) {
-        this.user4 = temp.member4.username
-        this.score4 = temp.member4.score
-      }
+      
     })
-
   }
-};
+}
 </script>
 
 <style scoped>
