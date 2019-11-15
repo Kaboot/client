@@ -90,35 +90,11 @@
         src="https://purepng.com/public/uploads/large/purepng.com-cloudnaturecloudsmoke-9615246757368kjiz.png"
         style="width:100px"
       />
-      <button
-        class="btn btn-success"
-        id="myidb"
-        ref="myidb"
-        style="width: 100px; height:100px"
-        v-on:click.prevent="addScore(10)"
-      >Nyamuk</button>
-      <button
-        class="btn btn-success"
-        id="myidc"
-        ref="myidc"
-        style="width: 100px; height:100px"
-        v-on:click.prevent="addScore(1)"
-      >Nyamuk</button>
-      <button
-        class="btn btn-success"
-        id="myidd"
-        ref="myidd"
-        style="width: 100px; height:100px"
-        v-on:click.prevent="addScore(1)"
-      >Nyamuk</button>
-      <button
-        class="btn btn-success"
-        id="myide"
-        ref="myide"
-        style="width: 100px; height:100px"
-        v-on:click.prevent="addScore(1)"
-      >Nyamuk</button>
-      <!-- <a v-if="!started" v-on:click.prevent="getStarted">Get Started</a> -->
+      <button class="nyamuk4" id="myidb" ref="myidb" v-on:click.prevent="addScore(10)"></button>
+      <button class="nyamuk1" id="myidc" ref="myidc" v-on:click.prevent="addScore(1)"></button>
+      <button class="nyamuk2" id="myidd" ref="myidd" v-on:click.prevent="addScore(1)"></button>
+      <button class="nyamuk3" id="myide" ref="myide" v-on:click.prevent="addScore(1)"></button>
+      <a v-if="!started" v-on:click.prevent="getStarted">Get Started</a>
     </div>
   </div>
 </div>
@@ -352,5 +328,34 @@ export default {
   font-size: 18px;
   padding: 2px;
   border: none;
+}
+.nyamuk1 {
+  border: none;
+  width: 70px;
+  height: 70px;
+  background-image: url("../assets/muka.png");
+  background-size: cover;
+}
+.nyamuk2 {
+  border: none;
+  width: 70px;
+  height: 70px;
+  background-image: url("../assets/alien.png");
+  background-size: cover;
+}
+.nyamuk3 {
+  border: none;
+  width: 70px;
+  height: 70px;
+  background-image: url("../assets/taik.jpeg");
+  background-size: cover;
+}
+.nyamuk4 {
+  border: none;
+  width: 70px;
+  height: 70px;
+  background-image: url("../assets/kecoak1.jpeg");
+  background-size: cover;
+  background-position-x: center;
 }
 </style>
