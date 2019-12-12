@@ -100,7 +100,7 @@
     <div class="end" v-if="!check" @click="backToHome">
       <h1> GAME OVER !</h1>
       <sui-header-content style="font-size:18px;">
-        {{userWinner}} is winner     
+        {{userWinner}} is winner
       </sui-header-content>
     <sui-button
         value="Home"
@@ -110,7 +110,6 @@
 </template>
 
 <script>
-import swal from 'sweetalert2'
 import db from '../config/firestore'
 import router from '../router'
 export default {
@@ -312,9 +311,8 @@ export default {
       console.log(this.score)
       if (this.score > 100) {
         console.log('masuk batas score')
-         db.collection('rooms').doc(this.$store.state.roomID).update({ status: false })
+        db.collection('rooms').doc(this.$store.state.roomID).update({ status: false })
       }
-      
     })
   }
 }
@@ -329,8 +327,6 @@ export default {
   font-weight: bolder;
   width: auto;
 }
-
-
 
 #race {
   background-image: url("../assets/Space-Phone-Wallpaper.jpg");
@@ -396,16 +392,15 @@ export default {
   background-size: cover;
   background-position-x: center;
 }
-.end{
+/* .end{
   margin-top: 200px;
-  margin: 700px
 }
 
 @media only screen and (max-width: 600px) {
 .end{
   margin: 400px
 }
- 
-}
+
+} */
 
 </style>
